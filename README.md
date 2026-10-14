@@ -1,98 +1,80 @@
-# 💧 WATERNEON • Su Arıtma Müşteri ve Servis Takip Sistemi
+# WATERNEON - Su Arıtma Müşteri ve Servis Takip Sistemi
 
-**WATERNEON**, su arıtma sistemleri teknik servisleri ve saha operasyonları için geliştirilmiş modern, hızlı ve %100 çevrimdışı (offline-first) çalışan bir Android müşteri ve periyodik bakım yönetim uygulamasıdır.
+WATERNEON, su arıtma sistemleri teknik servis ve saha operasyonları için geliştirilmiş çevrimdışı (offline-first) Android müşteri ve periyodik bakım yönetim uygulamasıdır.
 
----
+## Genel Bakış
 
-## 🚀 Öne Çıkan Özellikler
+Uygulama, teknik servis ekiplerinin müşteri kayıtlarını, periyodik filtre değişim tarihlerini, randevuları ve geçmiş servis notlarını internet bağlantısına ihtiyaç duymadan cihaz üzerinde güvenle yönetmesini sağlar.
 
-### 1. 👥 İkili Modül Mimarisi (Bireysel & Lojistik)
-* **Bireysel Müşteriler:** Ev ve kişisel su arıtma kullanıcıları için montaj ve periyodik filtre değişim takibi (+6 Ay, +1 Yıl, +2 Yıl, +3 Yıl).
-* **Lojistik / Kurumsal Müşteriler:** Fabrika, ofis ve işletmeler için Şirket Adı ve Kurumsal Sabit Hat desteğiyle birlikte sık periyotlu hızlı bakım seçenekleri (+3, +6, +9, +12 Ay).
+## Temel Özellikler
 
-### 2. 📊 Canlı Dashboard ve Servis Paneli (Aqua Glass)
-* Uygulama açılışında anlık günün iş yükünü gösteren akıllı gösterge kartları:
-  * **📅 Bugünün Randevuları:** Bugün için planlanmış servis randevuları.
-  * **⚠️ Acil / Geçen Bakımlar:** Bakım süresi dolmuş veya 15 gün içinde dolacak acil müşteriler.
+### Modül Mimarisi
+* **Bireysel Müşteriler:** Ev ve kişisel kullanım için montaj ve periyodik bakım takibi (+6 Ay, +1 Yıl, +2 Yıl, +3 Yıl periyot seçenekleri).
+* **Lojistik ve Kurumsal Müşteriler:** İşletme, fabrika ve ofisler için firma adı, kurumsal telefon desteği ve kısa periyotlu bakım takibi (+3, +6, +9, +12 Ay seçenekleri).
 
-### 3. 🗓️ Randevu & Rezervasyon Yönetimi
-* Müşteriyle sözleşilen ileri tarihli randevuları saat ve servis notuyla kaydetme.
-* **Akıllı Zaman Filtreleri:** *Tümü*, *📅 Bugün*, *🌅 Yarın* ve *🗓️ Bu Hafta (7 Gün)* seçenekleriyle randevu listeleme.
-* Tek tıkla bakım tamamlama veya randevu iptal edebilme.
+### Servis ve Randevu Yönetimi
+* **Servis Kontrol Paneli:** Günlük iş yükünü, bugünkü randevu sayısını ve acil bakım bekleyen müşteri sayılarını gösteren durum kartları.
+* **Randevu Takibi:** İleri tarihli servis randevularının oluşturulması; Tümü, Bugün, Yarın ve Bu Hafta zaman filtreleri ile listeleme.
+* **Müşteri Durumu:** Bakımı geciken, yaklaşan, normal süresinde olan veya pasife alınan (susturulan) müşterilerin durum ayrımı.
+* **Müşteri Susturma:** Ulaşılamayan veya bakımı erteleyen müşterileri pasife alarak bildirim akışından muaf tutma.
 
-### 4. 🔇 Müşteri Susturma (Pasife Alma)
-* Bakımı erteleyen veya ulaşılamayan müşterileri pasife alarak gri rozetle işaretleme.
-* Susturulan müşterileri ana bildirim akışından ve günlük uyarı süzgecinden muaf tutma.
+### İletişim ve Entegrasyon
+* **Hızlı Arama:** Müşteri kartı üzerinden tek dokunuşla telefon araması başlatma.
+* **WhatsApp Entegrasyonu:** Formatı normalize edilmiş telefon numaraları üzerinden doğrudan mesajlaşma başlatma.
 
-### 5. 📞 Tek Dokunuşla İletişim (Arama & WhatsApp)
-* Kartlar üzerinden tek tıkla doğrudan telefon araması başlatma.
-* Türkiye formatına göre normalize edilen numaralar üzerinden doğrudan WhatsApp sohbeti başlatma.
+### Veri Yönetimi ve Yedekleme
+* **Çevrimdışı Mimari:** Veriler cihazın yerel hafızasında SQLite (Room) üzerinde saklanır.
+* **Excel Dışa Aktarma:** Müşteri listesini UTF-8 BOM kodlamalı CSV formatında dışa aktarma.
+* **JSON Veritabanı Yedeği:** Tüm müşteri ve servis notlarının tam yedeğini alma ve yedekten geri yükleme.
+* **Arka Plan Hatırlatıcı:** Günü gelen veya geçen bakımlar için sistem bildirim servisi (WorkManager).
 
-### 6. 💾 Tam Yedekleme & Geri Yükleme
-* **Excel (.csv):** Müşteri listesini Excel uyumlu (UTF-8 BOM) CSV olarak dışa aktarma ve paylaşma.
-* **JSON Veritabanı Yedeği:** Telefon değişikliklerinde tüm müşteri ve geçmiş servis notlarını tek dosya ile yedekleme ve anında geri yükleme.
+## Mimari ve Teknolojiler
 
-### 7. ⏰ Otomatik Arka Plan Hatırlatıcı (WorkManager)
-* İnternet bağlantısı gerektirmeksizin, günü gelen veya geçen bakımları tespit edip durum çubuğuna sistem uyarısı düşüren arka plan servisi.
-
----
-
-## 🛠️ Kullanılan Teknolojiler (Tech Stack)
-
-* **Dil:** Kotlin 1.9
+* **Programlama Dili:** Kotlin 1.9
 * **Mimari:** MVVM (Model-View-ViewModel), Repository Pattern
-* **Veritabanı:** Android Jetpack Room Database (SQLite) — Sürüm 4 (Migration 1->2, 2->3, 3->4)
-* **Asenkron Veri Akışı:** Kotlin Coroutines & StateFlow / SharedFlow
-* **Kullanıcı Arayüzü (UI):** Material Design 3 (Aqua Glass Theme), ViewBinding, CoordinatorLayout
-* **Arka Plan Servisleri:** Android Jetpack WorkManager
-* **Veri İşleme:** Google Gson
+* **Veritabanı:** Android Jetpack Room Database (SQLite, Schema v4)
+* **Reaktif Veri Akışı:** Kotlin Coroutines & StateFlow
+* **Kullanıcı Arayüzü:** Material Design 3, ViewBinding, CoordinatorLayout
+* **Arka Plan Görevleri:** Android Jetpack WorkManager
+* **Serileştirme:** Google Gson
 
----
-
-## 📂 Proje Dizin Yapısı
+## Dizin Yapısı
 
 ```text
 com.aritma.musteritakip/
-├── AritmaApplication.kt           # Uygulama başlatıcı ve bağımlılık yöneticisi
+├── AritmaApplication.kt           # Uygulama başlatıcı ve singleton bağımlılıklar
 ├── data/
 │   ├── local/
-│   │   ├── AppDatabase.kt         # Room veritabanı ve migrasyon tanımları
+│   │   ├── AppDatabase.kt         # Room veritabanı ve göç (migration) tanımları
 │   │   ├── dao/                   # CustomerDao, DistrictDao, NoteDao
 │   │   └── entity/                # CustomerEntity, DistrictEntity, NoteEntity
 │   └── repository/
-│       └── CustomerRepository.kt  # Merkezi veri erişim katmanı
+│       └── CustomerRepository.kt  # Veri erişim katmanı soyutlaması
 ├── ui/
-│   ├── backup/                    # Yedekleme ve geri yükleme ekranı
-│   ├── bireysel/                  # Müşteri listesi, detay ve düzenleme ekranları
-│   ├── lojistik/                  # Kurumsal müşteri listesi ekranı
-│   ├── main/                      # MainActivity ve Dashboard Modül Seçim Fragment'ı
+│   ├── backup/                    # Excel/JSON yedekleme ve geri yükleme
+│   ├── bireysel/                  # Müşteri listesi, detay, notlar ve düzenleme
+│   ├── lojistik/                  # Kurumsal müşteri modülü listesi
+│   ├── main/                      # MainActivity ve modül seçim paneli
 │   ├── reservation/               # Randevular ve zaman filtreli servis ekranı
 │   └── viewmodel/                 # CustomerViewModel ve ViewModelFactory
-├── util/                          # Tarih, diyalog, WhatsApp, Excel ve JSON yardımcı sınıfları
-└── worker/                        # WorkManager periyodik bakım hatırlatıcı servisi
+├── util/                          # Tarih, diyalog, WhatsApp, Excel ve JSON araçları
+└── worker/                        # WorkManager bakım hatırlatıcı servisi
 ```
 
----
+## Gereksinimler ve Derleme
 
-## ⚙️ Kurulum & Derleme
-
-### Gereksinimler:
-* Android Studio Iguana / Jellyfish veya daha yenisi
+### Sistem Gereksinimleri
+* Android Studio Iguana / Jellyfish veya daha güncel sürüm
 * JDK 17
-* Minimum Android Sürümü: Android 7.0 (API 24)
-* Hedef Android Sürümü: Android 14 (API 34)
+* Minimum SDK: Android 7.0 (API 24)
+* Hedef SDK: Android 14 (API 34)
 
-### Derleme Adımları:
+### Derleme Komutları
+
 ```bash
-# Debug APK Derleme:
+# Debug APK derleme:
 ./gradlew assembleDebug
 
-# İmzalı Release APK Derleme:
+# Release APK derleme:
 ./gradlew assembleRelease
 ```
-Çıkan APK dosyası doğrudan Android cihazlara aktarılarak kurulabilir.
-
----
-
-## 📄 Lisans
-Bu proje **WATERNEON Su Arıtma Sistemleri** için özel olarak geliştirilmiştir.
