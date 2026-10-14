@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Circle Container Background -->
+    <path
+        android:fillColor="#1E50FF"
+        android:pathData="M54,54m-48,0a48,48 0 1,0 96,0a48,48 0 1,0 -96,0" />
+
+    <!-- White Teardrop / Water Droplet emblem -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,26 C54,26 74,50 74,62 C74,73 65,82 54,82 C43,82 34,73 34,62 C34,50 54,26 54,26 Z" />
+
+    <!-- Subtle Droplet Inner Curve -->
+    <path
+        android:fillColor="#1E50FF"
+        android:pathData="M47,59 C47,67 52,71 54,73 C50,72 43,68 43,60 C43,54 49,46 49,46 C49,46 47,53 47,59 Z" />
+
+</vector>

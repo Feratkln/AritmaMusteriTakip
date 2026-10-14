@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WATERNEON</string>
+    <string name="company_full_name">WATERNEON Su Arıtma Sistemleri</string>
+
+    <!-- Module Selection -->
+    <string name="title_select_module">Modül Seçiniz</string>
+    <string name="desc_select_module">İşlem yapmak istediğiniz müşteri kategorisini seçin</string>
+    <string name="module_bireysel_title">Bireysel Müşteriler</string>
+    <string name="module_bireysel_desc">Ev tipi arıtma cihazı bakımları ve servis takibi</string>
+    <string name="module_lojistik_title">Lojistik / Kurumsal</string>
+    <string name="module_lojistik_desc">Fabrika, otel ve endüstriyel arıtma bakımları</string>
+
+    <!-- Actions -->
+    <string name="action_add_customer">Yeni Müşteri Ekle</string>
+    <string name="action_call">Ara</string>
+    <string name="action_whatsapp">WhatsApp</string>
+    <string name="action_refresh_maintenance">Bakımı Yenile</string>
+    <string name="action_add_note">Not Ekle</string>
+    <string name="action_backup_restore">Yedekle / Dışa Aktar</string>
+
+    <!-- Filters & Sort -->
+    <string name="filter_all_districts">Tüm Semtler</string>
+    <string name="filter_all">Tümü</string>
+    <string name="filter_overdue">🔴 Bakımı Geçenler</string>
+    <string name="filter_due_soon">🟠 Bakımı Yaklaşanlar</string>
+    <string name="search_hint">İsim, Telefon veya Adres Ara...</string>
+
+    <!-- Maintenance Options -->
+    <string name="maint_refresh_1_year">Bakımı +1 Yıl Uzat</string>
+    <string name="maint_refresh_3_months">+3 Ay Bakım</string>
+    <string name="maint_refresh_6_months">+6 Ay Bakım</string>
+    <string name="maint_refresh_9_months">+9 Ay Bakım</string>
+    <string name="maint_refresh_12_months">+12 Ay Bakım</string>
+</resources>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ===== WATERNEON "Aqua Glass" design system ===== -->
+
+    <!-- Brand: Bireysel (Cobalt) -->
+    <color name="bireysel_primary">#2459FF</color>
+    <color name="bireysel_primary_dark">#1237B8</color>
+    <color name="bireysel_primary_variant">#0A1F5C</color>
+    <color name="bireysel_accent">#19C3F0</color>
+    <color name="bireysel_light_bg">#EAF0FF</color>
+
+    <color name="waterneon_blue">#2459FF</color>
+    <color name="waterneon_navy">#0A1F5C</color>
+
+    <!-- Brand: Lojistik (Violet) -->
+    <color name="lojistik_primary">#7C3AED</color>
+    <color name="lojistik_primary_dark">#5B21B6</color>
+    <color name="lojistik_primary_variant">#4C1D95</color>
+    <color name="lojistik_accent">#A78BFA</color>
+    <color name="lojistik_light_bg">#F1EAFF</color>
+
+    <!-- Header gradient -->
+    <color name="header_start">#0A1F5C</color>
+    <color name="header_end">#2459FF</color>
+    <color name="header_text_muted">#C7D6FF</color>
+    <color name="aqua">#19D3F3</color>
+
+    <!-- Status colours -->
+    <color name="status_red">#E5484D</color>
+    <color name="status_red_bg">#FFE9EA</color>
+
+    <color name="status_orange">#D97A06</color>
+    <color name="status_orange_bg">#FFF1DB</color>
+
+    <color name="status_safe">#0F9D58</color>
+    <color name="status_safe_bg">#DDF7E8</color>
+
+    <color name="status_muted">#5A6785</color>
+    <color name="status_muted_bg">#E7EBF3</color>
+
+    <color name="status_reserved">#0F7BD8</color>
+    <color name="status_reserved_bg">#E1F0FF</color>
+
+    <!-- Communication -->
+    <color name="whatsapp_green">#12994B</color>
+    <color name="whatsapp_green_bg">#DDF7E8</color>
+
+    <color name="call_blue">#2459FF</color>
+    <color name="call_blue_bg">#E6EDFF</color>
+
+    <!-- Inputs -->
+    <color name="input_text_color">#0A1630</color>
+    <color name="input_hint_color">#7A87A3</color>
+    <color name="input_box_stroke">#D5DDEB</color>
+    <color name="input_box_bg">#FFFFFF</color>
+
+    <!-- Surfaces & text -->
+    <color name="bg_light">#F3F6FB</color>
+    <color name="surface_soft">#F3F6FB</color>
+    <color name="card_bg">#FFFFFF</color>
+    <color name="text_primary">#0A1630</color>
+    <color name="text_secondary">#5A6785</color>
+    <color name="divider_color">#E6ECF5</color>
+
+    <color name="glass_white">#26FFFFFF</color>
+    <color name="glass_white_stroke">#66FFFFFF</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+</resources>

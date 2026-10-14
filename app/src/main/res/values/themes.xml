@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- ===== App theme: forced light, WATERNEON "Aqua Glass" ===== -->
+    <style name="Theme.AritmaMusteriTakip" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/bireysel_primary</item>
+        <item name="colorPrimaryVariant">@color/bireysel_primary_variant</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/bireysel_light_bg</item>
+        <item name="colorOnPrimaryContainer">@color/bireysel_primary_variant</item>
+
+        <item name="colorSecondary">@color/bireysel_accent</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSecondaryContainer">@color/call_blue_bg</item>
+        <item name="colorOnSecondaryContainer">@color/bireysel_primary_variant</item>
+
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+        <item name="colorSurfaceVariant">@color/surface_soft</item>
+        <item name="colorOnSurfaceVariant">@color/text_secondary</item>
+        <item name="colorOutline">@color/input_box_stroke</item>
+        <item name="android:colorBackground">@color/bg_light</item>
+
+        <item name="android:statusBarColor">@color/header_start</item>
+        <item name="android:windowBackground">@color/bg_light</item>
+        <item name="android:windowLightStatusBar">false</item>
+
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+        <item name="android:editTextColor">@color/text_primary</item>
+        <item name="android:textColorHint">@color/input_hint_color</item>
+
+        <!-- Component defaults -->
+        <item name="materialButtonStyle">@style/Widget.App.Button</item>
+        <item name="materialCardViewStyle">@style/Widget.App.Card</item>
+        <item name="chipStyle">@style/Widget.App.Chip</item>
+        <item name="textInputStyle">@style/Widget.App.TextInput</item>
+
+        <item name="actionOverflowMenuStyle">@style/Widget.App.OverflowMenu</item>
+        <item name="popupTheme">@style/ThemeOverlay.App.PopupMenu</item>
+    </style>
+
+    <!-- ===== Buttons: soft pill, bold, no caps ===== -->
+    <style name="Widget.App.Button" parent="Widget.Material3.Button">
+        <item name="cornerRadius">16dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:minHeight">48dp</item>
+    </style>
+
+    <style name="Widget.App.Button.Tonal" parent="Widget.Material3.Button.TonalButton">
+        <item name="cornerRadius">16dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:minHeight">44dp</item>
+    </style>
+
+    <style name="Widget.App.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="cornerRadius">16dp</item>
+        <item name="strokeColor">@color/input_box_stroke</item>
+        <item name="strokeWidth">1.5dp</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:minHeight">48dp</item>
+    </style>
+
+    <style name="Widget.App.Button.Text" parent="Widget.Material3.Button.TextButton">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <!-- ===== Cards: flat white, hairline border, big radius ===== -->
+    <style name="Widget.App.Card" parent="Widget.Material3.CardView.Filled">
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="cardCornerRadius">22dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="strokeColor">@color/divider_color</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
+    <!-- ===== Filter chips: pill, cobalt when selected ===== -->
+    <style name="Widget.App.Chip" parent="Widget.Material3.Chip.Filter">
+        <item name="chipBackgroundColor">@color/chip_bg_selector</item>
+        <item name="chipStrokeColor">@color/chip_stroke_selector</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="chipCornerRadius">20dp</item>
+        <item name="chipMinHeight">38dp</item>
+        <item name="checkedIconVisible">false</item>
+        <item name="android:textColor">@color/chip_text_selector</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- ===== Inputs: rounded outline, soft grey, cobalt focus ===== -->
+    <style name="Widget.App.TextInput" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">16dp</item>
+        <item name="boxCornerRadiusTopEnd">16dp</item>
+        <item name="boxCornerRadiusBottomStart">16dp</item>
+        <item name="boxCornerRadiusBottomEnd">16dp</item>
+        <item name="boxStrokeColor">@color/input_stroke_selector</item>
+        <item name="hintTextColor">@color/bireysel_primary</item>
+        <item name="boxBackgroundColor">@color/white</item>
+    </style>
+
+    <!-- ===== 3-dot menu ===== -->
+    <style name="ThemeOverlay.App.PopupMenu" parent="ThemeOverlay.Material3.Light">
+        <item name="android:colorBackground">@color/white</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+        <item name="android:itemTextAppearance">@style/App.PopupMenu.TextAppearance</item>
+    </style>
+
+    <style name="App.PopupMenu.TextAppearance" parent="TextAppearance.AppCompat.Widget.PopupMenu.Large">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Widget.App.OverflowMenu" parent="Widget.Material3.PopupMenu.Overflow">
+        <item name="android:popupBackground">@drawable/bg_popup_menu</item>
+    </style>
+
+    <!-- ===== Header toolbar title ===== -->
+    <style name="App.Toolbar.Title" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>
