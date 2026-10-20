@@ -31,6 +31,8 @@ data class CustomerEntity(
     companion object {
         const val MODULE_BIREYSEL = "bireysel"
         const val MODULE_LOJISTIK = "lojistik"
+        const val MODULE_UV_LAMBA = "uv_lamba"
+        const val MODULE_MINERAL = "mineral"
     }
 
     val fullName: String

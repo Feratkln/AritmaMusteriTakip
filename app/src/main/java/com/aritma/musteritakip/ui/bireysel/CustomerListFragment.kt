@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -30,10 +31,20 @@ import kotlinx.coroutines.launch
 
 /**
  * Müşteri listesi ana ekranı Fragment bileşeni.
- * Arama, ilçe filtreleme, bakım durumu çipleri (Tümü, Gecikenler, Yaklaşanlar, Güvenliler, Susturulanlar, Randevulular),
- * sıralama seçenekleri ve yeni müşteri ekleme eylemlerini sunar.
+ * Bireysel, UV Lamba ve Mineral modüllerine dinamik uyarlanır; arama, ilçe filtreleme,
+ * bakım durumu çipleri, sıralama ve yeni müşteri ekleme eylemlerini sunar.
  */
 class CustomerListFragment : Fragment() {
+
+    companion object {
+        private const val ARG_MODULE = "arg_module"
+
+        fun newInstance(module: String = CustomerEntity.MODULE_BIREYSEL): CustomerListFragment {
+            return CustomerListFragment().apply {
+                arguments = Bundle().apply { putString(ARG_MODULE, module) }
+            }
+        }
+    }
 
     private var _binding: FragmentCustomerListBinding? = null
     private val binding get() = _binding!!
@@ -58,10 +69,28 @@ class CustomerListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val currentModule = arguments?.getString(ARG_MODULE) ?: viewModel.selectedModule.value
+        viewModel.setModule(currentModule)
+
+        val moduleTitle = when (currentModule) {
+            CustomerEntity.MODULE_UV_LAMBA -> "UV Lamba Değişimi"
+            CustomerEntity.MODULE_MINERAL -> "Mineral Değişimi"
+            CustomerEntity.MODULE_LOJISTIK -> "Lojistik & Kurumsal Müşteriler"
+            else -> "Bireysel Müşteriler"
+        }
+
         (requireActivity() as AppCompatActivity).supportActionBar?.apply {
-            title = "Bireysel Müşteriler"
+            title = moduleTitle
             setDisplayHomeAsUpEnabled(true)
         }
+
+        val fabTint = when (currentModule) {
+            CustomerEntity.MODULE_UV_LAMBA -> R.color.uv_lamba_primary
+            CustomerEntity.MODULE_MINERAL -> R.color.mineral_primary
+            CustomerEntity.MODULE_LOJISTIK -> R.color.lojistik_primary
+            else -> R.color.bireysel_primary
+        }
+        binding.fabAddCustomer.backgroundTintList = ContextCompat.getColorStateList(requireContext(), fabTint)
 
         setupRecyclerView()
         setupSearchAndFilters()
@@ -70,7 +99,13 @@ class CustomerListFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.customers.collectLatest { list ->
                 adapter.submitList(list)
-                binding.tvCustomerCount.text = "${list.size} Müşteri Listelendi"
+                val countUnit = when (currentModule) {
+                    CustomerEntity.MODULE_UV_LAMBA -> "UV Lamba Kaydı"
+                    CustomerEntity.MODULE_MINERAL -> "Mineral Kaydı"
+                    CustomerEntity.MODULE_LOJISTIK -> "Kurumsal Müşteri"
+                    else -> "Müşteri"
+                }
+                binding.tvCustomerCount.text = "${list.size} $countUnit Listelendi"
                 binding.layoutEmpty.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
             }
         }
@@ -100,7 +135,7 @@ class CustomerListFragment : Fragment() {
         // FAB to Add Customer
         binding.fabAddCustomer.setOnClickListener {
             val intent = Intent(requireContext(), AddEditCustomerActivity::class.java).apply {
-                putExtra("MODULE", CustomerEntity.MODULE_BIREYSEL)
+                putExtra("MODULE", currentModule)
             }
             startActivity(intent)
         }
@@ -124,7 +159,16 @@ class CustomerListFragment : Fragment() {
                 WhatsAppHelper.openDialer(requireContext(), customer.phone)
             },
             onWhatsAppClick = { customer ->
-                val welcomeMsg = "Merhaba ${customer.name} Bey, WATERNEON Su Arıtma Sistemleri'nden iletişime geçiyorum. Cihazınızın bakım zamanı hakkında bilgilendirmedir."
+                val welcomeMsg = when (customer.module) {
+                    CustomerEntity.MODULE_UV_LAMBA ->
+                        "Merhaba ${customer.name} Bey, WATERNEON Su Arıtma Sistemleri'nden UV lamba değişimi ve sterilizasyon bakımı hakkında bilgilendirmedir."
+                    CustomerEntity.MODULE_MINERAL ->
+                        "Merhaba ${customer.name} Bey, WATERNEON Su Arıtma Sistemleri'nden mineral filtre kartuşu değişimi hakkında bilgilendirmedir."
+                    CustomerEntity.MODULE_LOJISTIK ->
+                        "Merhaba ${customer.name} Bey, WATERNEON Su Arıtma Sistemleri'nden kurumsal bakım takibi için iletişime geçiyorum."
+                    else ->
+                        "Merhaba ${customer.name} Bey, WATERNEON Su Arıtma Sistemleri'nden iletişime geçiyorum. Cihazınızın bakım zamanı hakkında bilgilendirmedir."
+                }
                 WhatsAppHelper.openWhatsAppChat(requireContext(), customer.phone, welcomeMsg)
             }
         )

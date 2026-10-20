@@ -80,6 +80,12 @@ class CustomerViewModel(private val repository: CustomerRepository) : ViewModel(
     val lojistikCount: StateFlow<Int> = repository.getCustomerCountByModule(CustomerEntity.MODULE_LOJISTIK)
         .stateIn(viewModelScope, SharingStarted.Lazily, 0)
 
+    val uvLambaCount: StateFlow<Int> = repository.getCustomerCountByModule(CustomerEntity.MODULE_UV_LAMBA)
+        .stateIn(viewModelScope, SharingStarted.Lazily, 0)
+
+    val mineralCount: StateFlow<Int> = repository.getCustomerCountByModule(CustomerEntity.MODULE_MINERAL)
+        .stateIn(viewModelScope, SharingStarted.Lazily, 0)
+
     val reservationsList: StateFlow<List<CustomerEntity>> = repository.getCustomersWithReservation()
         .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 

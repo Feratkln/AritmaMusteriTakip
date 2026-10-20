@@ -19,6 +19,20 @@
     <color name="lojistik_accent">#A78BFA</color>
     <color name="lojistik_light_bg">#F1EAFF</color>
 
+    <!-- Brand: UV Lamba (Electric Amber / Orange) -->
+    <color name="uv_lamba_primary">#EA580C</color>
+    <color name="uv_lamba_primary_dark">#C2410C</color>
+    <color name="uv_lamba_primary_variant">#7C2D12</color>
+    <color name="uv_lamba_accent">#FDBA74</color>
+    <color name="uv_lamba_light_bg">#FFF7ED</color>
+
+    <!-- Brand: Mineral (Teal / Emerald) -->
+    <color name="mineral_primary">#0D9488</color>
+    <color name="mineral_primary_dark">#0F766E</color>
+    <color name="mineral_primary_variant">#134E4A</color>
+    <color name="mineral_accent">#5EEAD4</color>
+    <color name="mineral_light_bg">#F0FDFA</color>
+
     <!-- Header gradient -->
     <color name="header_start">#0A1F5C</color>
     <color name="header_end">#2459FF</color>

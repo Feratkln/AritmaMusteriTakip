@@ -10,6 +10,10 @@
     <string name="module_bireysel_desc">Ev tipi arıtma cihazı bakımları ve servis takibi</string>
     <string name="module_lojistik_title">Lojistik / Kurumsal</string>
     <string name="module_lojistik_desc">Fabrika, otel ve endüstriyel arıtma bakımları</string>
+    <string name="module_uv_lamba_title">UV Lamba Değişimi</string>
+    <string name="module_uv_lamba_desc">Ultraviyole dezenfeksiyon lambaları ve lamba ömrü takibi</string>
+    <string name="module_mineral_title">Mineral Değişimi</string>
+    <string name="module_mineral_desc">Mineral, alkali ve tatlandırıcı filtre kartuş değişimleri</string>
 
     <!-- Actions -->
     <string name="action_add_customer">Yeni Müşteri Ekle</string>

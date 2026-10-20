@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 /**
  * Uygulama karşılama ve ana modül seçim ekranı (Dashboard).
  * Canlı günün özeti (bugünkü randevular ve acil bakımlar),
- * Bireysel ve Lojistik modül kartları ile yedekleme ekranına hızlı erişim sağlar.
+ * Bireysel, Lojistik, UV Lamba ve Mineral modül kartları ile yedekleme ekranına hızlı erişim sağlar.
  */
 class ModuleSelectionFragment : Fragment() {
 
@@ -67,6 +67,18 @@ class ModuleSelectionFragment : Fragment() {
             }
         }
 
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.uvLambaCount.collectLatest { count ->
+                binding.tvUvLambaCount.text = "$count Kayıtlı Değişim"
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.mineralCount.collectLatest { count ->
+                binding.tvMineralCount.text = "$count Kayıtlı Değişim"
+            }
+        }
+
         // Live Dashboard metrics (Today's reservations & Urgent maintenance)
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.todayReservationsCount.collectLatest { count ->
@@ -88,7 +100,7 @@ class ModuleSelectionFragment : Fragment() {
             viewModel.setModule(CustomerEntity.MODULE_BIREYSEL)
             viewModel.setStatusFilter(StatusFilter.OVERDUE_ONLY)
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainer, CustomerListFragment())
+                .replace(R.id.fragmentContainer, CustomerListFragment.newInstance(CustomerEntity.MODULE_BIREYSEL))
                 .addToBackStack("urgent_customers")
                 .commit()
         }
@@ -97,7 +109,7 @@ class ModuleSelectionFragment : Fragment() {
         val openBireyselListener = View.OnClickListener {
             viewModel.setModule(CustomerEntity.MODULE_BIREYSEL)
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainer, CustomerListFragment())
+                .replace(R.id.fragmentContainer, CustomerListFragment.newInstance(CustomerEntity.MODULE_BIREYSEL))
                 .addToBackStack("bireysel")
                 .commit()
         }
@@ -114,6 +126,28 @@ class ModuleSelectionFragment : Fragment() {
         }
         binding.btnOpenLojistik.setOnClickListener(openLojistikListener)
         binding.cardLojistik.setOnClickListener(openLojistikListener)
+
+        // Module 3: UV Lamba Değişimi
+        val openUvLambaListener = View.OnClickListener {
+            viewModel.setModule(CustomerEntity.MODULE_UV_LAMBA)
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, CustomerListFragment.newInstance(CustomerEntity.MODULE_UV_LAMBA))
+                .addToBackStack("uv_lamba")
+                .commit()
+        }
+        binding.btnOpenUvLamba.setOnClickListener(openUvLambaListener)
+        binding.cardUvLamba.setOnClickListener(openUvLambaListener)
+
+        // Module 4: Mineral Değişimi
+        val openMineralListener = View.OnClickListener {
+            viewModel.setModule(CustomerEntity.MODULE_MINERAL)
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, CustomerListFragment.newInstance(CustomerEntity.MODULE_MINERAL))
+                .addToBackStack("mineral")
+                .commit()
+        }
+        binding.btnOpenMineral.setOnClickListener(openMineralListener)
+        binding.cardMineral.setOnClickListener(openMineralListener)
 
         // Backup & Restore Action
         binding.btnBackupRestore.setOnClickListener {

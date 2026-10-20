@@ -40,7 +40,13 @@ class ReservationAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(customer: CustomerEntity) {
-            binding.tvCustomerName.text = customer.fullName
+            val moduleTag = when (customer.module) {
+                CustomerEntity.MODULE_UV_LAMBA -> " (☀️ UV Lamba)"
+                CustomerEntity.MODULE_MINERAL -> " (💎 Mineral)"
+                CustomerEntity.MODULE_LOJISTIK -> " (🏭 Kurumsal)"
+                else -> ""
+            }
+            binding.tvCustomerName.text = "${customer.fullName}$moduleTag"
             binding.tvAddress.text = "📍 ${customer.district} / ${customer.address.ifBlank { "Adres belirtilmedi" }}"
 
             val resDate = customer.reservationDate

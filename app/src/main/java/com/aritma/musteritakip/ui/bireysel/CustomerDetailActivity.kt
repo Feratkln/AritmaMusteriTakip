@@ -77,7 +77,16 @@ class CustomerDetailActivity : AppCompatActivity() {
         // WhatsApp Action
         binding.btnWhatsApp.setOnClickListener {
             currentCustomer?.let { customer ->
-                val msg = "Merhaba ${customer.name} Bey, WATERNEON Su Arıtma Sistemleri'nden iletişime geçiyorum. Su arıtma cihazınızın bakım zamanı ile ilgili bilgilendirme mesajıdır."
+                val msg = when (customer.module) {
+                    CustomerEntity.MODULE_UV_LAMBA ->
+                        "Merhaba ${customer.name} Bey, WATERNEON Su Arıtma Sistemleri'nden iletişime geçiyorum. UV lambanızın değişim ve bakım zamanı ile ilgili bilgilendirmedir."
+                    CustomerEntity.MODULE_MINERAL ->
+                        "Merhaba ${customer.name} Bey, WATERNEON Su Arıtma Sistemleri'nden iletişime geçiyorum. Mineral filtre kartuşunuzun değişim zamanı ile ilgili bilgilendirmedir."
+                    CustomerEntity.MODULE_LOJISTIK ->
+                        "Merhaba ${customer.name} Bey, WATERNEON Su Arıtma Sistemleri'nden kurumsal arıtma sisteminizin periyodik bakım zamanı ile ilgili bilgilendirmedir."
+                    else ->
+                        "Merhaba ${customer.name} Bey, WATERNEON Su Arıtma Sistemleri'nden iletişime geçiyorum. Su arıtma cihazınızın bakım zamanı ile ilgili bilgilendirme mesajıdır."
+                }
                 WhatsAppHelper.openWhatsAppChat(this, customer.phone, msg)
             }
         }
@@ -219,40 +228,82 @@ class CustomerDetailActivity : AppCompatActivity() {
                     }
                 }
 
-                // Setup Maintenance Refresh Options based on Module (Bireysel = Fixed 1 Year; Lojistik = 3/6/9/12 Months)
-                if (customer.module == CustomerEntity.MODULE_BIREYSEL) {
-                    binding.btnRefreshMaintenanceBireysel.visibility = View.VISIBLE
-                    binding.layoutLojistikRefresh.visibility = View.GONE
+                // Setup Maintenance Refresh Options based on Module
+                when (customer.module) {
+                    CustomerEntity.MODULE_LOJISTIK -> {
+                        binding.btnRefreshMaintenanceBireysel.visibility = View.GONE
+                        binding.layoutLojistikRefresh.visibility = View.VISIBLE
 
-                    binding.btnRefreshMaintenanceBireysel.setOnClickListener {
-                        CustomDialogHelper.showMaintenanceConfirmDialog(
-                            context = this@CustomerDetailActivity,
-                            customerName = customer.fullName,
-                            district = customer.district
-                        ) {
+                        binding.btnRefresh3Months.setOnClickListener {
+                            viewModel.refreshMaintenanceDate(customer.id, 3)
+                            CustomDialogHelper.showSuccessToast(this@CustomerDetailActivity, "✅", "Bakım tarihi +3 ay uzatıldı")
+                        }
+                        binding.btnRefresh6Months.setOnClickListener {
+                            viewModel.refreshMaintenanceDate(customer.id, 6)
+                            CustomDialogHelper.showSuccessToast(this@CustomerDetailActivity, "✅", "Bakım tarihi +6 ay uzatıldı")
+                        }
+                        binding.btnRefresh9Months.setOnClickListener {
+                            viewModel.refreshMaintenanceDate(customer.id, 9)
+                            CustomDialogHelper.showSuccessToast(this@CustomerDetailActivity, "✅", "Bakım tarihi +9 ay uzatıldı")
+                        }
+                        binding.btnRefresh12Months.setOnClickListener {
                             viewModel.refreshMaintenanceDate(customer.id, 12)
-                            CustomDialogHelper.showSuccessToast(this@CustomerDetailActivity, "🎉", "Bakım yapıldı! (+1 Yıl)")
+                            CustomDialogHelper.showSuccessToast(this@CustomerDetailActivity, "✅", "Bakım tarihi +12 ay uzatıldı")
                         }
                     }
-                } else {
-                    binding.btnRefreshMaintenanceBireysel.visibility = View.GONE
-                    binding.layoutLojistikRefresh.visibility = View.VISIBLE
+                    CustomerEntity.MODULE_UV_LAMBA -> {
+                        binding.btnRefreshMaintenanceBireysel.visibility = View.VISIBLE
+                        binding.layoutLojistikRefresh.visibility = View.GONE
+                        binding.btnRefreshMaintenanceBireysel.text = "☀️ UV Lamba Değiştirildi (+1 Yıl)"
+                        binding.btnRefreshMaintenanceBireysel.backgroundTintList =
+                            ColorStateList.valueOf(ContextCompat.getColor(this@CustomerDetailActivity, R.color.uv_lamba_primary))
 
-                    binding.btnRefresh3Months.setOnClickListener {
-                        viewModel.refreshMaintenanceDate(customer.id, 3)
-                        CustomDialogHelper.showSuccessToast(this@CustomerDetailActivity, "✅", "Bakım tarihi +3 ay uzatıldı")
+                        binding.btnRefreshMaintenanceBireysel.setOnClickListener {
+                            CustomDialogHelper.showMaintenanceConfirmDialog(
+                                context = this@CustomerDetailActivity,
+                                customerName = customer.fullName,
+                                district = customer.district
+                            ) {
+                                viewModel.refreshMaintenanceDate(customer.id, 12)
+                                CustomDialogHelper.showSuccessToast(this@CustomerDetailActivity, "☀️", "UV Lamba değişimi kaydedildi! (+1 Yıl)")
+                            }
+                        }
                     }
-                    binding.btnRefresh6Months.setOnClickListener {
-                        viewModel.refreshMaintenanceDate(customer.id, 6)
-                        CustomDialogHelper.showSuccessToast(this@CustomerDetailActivity, "✅", "Bakım tarihi +6 ay uzatıldı")
+                    CustomerEntity.MODULE_MINERAL -> {
+                        binding.btnRefreshMaintenanceBireysel.visibility = View.VISIBLE
+                        binding.layoutLojistikRefresh.visibility = View.GONE
+                        binding.btnRefreshMaintenanceBireysel.text = "💎 Mineral Filtre Değiştirildi (+1 Yıl)"
+                        binding.btnRefreshMaintenanceBireysel.backgroundTintList =
+                            ColorStateList.valueOf(ContextCompat.getColor(this@CustomerDetailActivity, R.color.mineral_primary))
+
+                        binding.btnRefreshMaintenanceBireysel.setOnClickListener {
+                            CustomDialogHelper.showMaintenanceConfirmDialog(
+                                context = this@CustomerDetailActivity,
+                                customerName = customer.fullName,
+                                district = customer.district
+                            ) {
+                                viewModel.refreshMaintenanceDate(customer.id, 12)
+                                CustomDialogHelper.showSuccessToast(this@CustomerDetailActivity, "💎", "Mineral filtre değişimi kaydedildi! (+1 Yıl)")
+                            }
+                        }
                     }
-                    binding.btnRefresh9Months.setOnClickListener {
-                        viewModel.refreshMaintenanceDate(customer.id, 9)
-                        CustomDialogHelper.showSuccessToast(this@CustomerDetailActivity, "✅", "Bakım tarihi +9 ay uzatıldı")
-                    }
-                    binding.btnRefresh12Months.setOnClickListener {
-                        viewModel.refreshMaintenanceDate(customer.id, 12)
-                        CustomDialogHelper.showSuccessToast(this@CustomerDetailActivity, "✅", "Bakım tarihi +12 ay uzatıldı")
+                    else -> {
+                        binding.btnRefreshMaintenanceBireysel.visibility = View.VISIBLE
+                        binding.layoutLojistikRefresh.visibility = View.GONE
+                        binding.btnRefreshMaintenanceBireysel.text = "✅ Bakım Yapıldı (+1 Yıl)"
+                        binding.btnRefreshMaintenanceBireysel.backgroundTintList =
+                            ColorStateList.valueOf(ContextCompat.getColor(this@CustomerDetailActivity, R.color.bireysel_primary))
+
+                        binding.btnRefreshMaintenanceBireysel.setOnClickListener {
+                            CustomDialogHelper.showMaintenanceConfirmDialog(
+                                context = this@CustomerDetailActivity,
+                                customerName = customer.fullName,
+                                district = customer.district
+                            ) {
+                                viewModel.refreshMaintenanceDate(customer.id, 12)
+                                CustomDialogHelper.showSuccessToast(this@CustomerDetailActivity, "🎉", "Bakım yapıldı! (+1 Yıl)")
+                            }
+                        }
                     }
                 }
             }

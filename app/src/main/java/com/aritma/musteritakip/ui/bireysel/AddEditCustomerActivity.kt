@@ -27,8 +27,8 @@ import java.util.Calendar
 
 /**
  * Yeni müşteri ekleme ve var olan müşteri bilgilerini düzenleme ekranı.
- * Bireysel ve Lojistik modüllerine göre dinamik form alanlarını (şirket adı/telefonu,
- * modüle özel hızlı bakım periyotları: 3/6/9/12 ay veya 6 ay/1/2/3 yıl) yönetir.
+ * Bireysel, Lojistik, UV Lamba ve Mineral modüllerine göre dinamik form alanlarını
+ * ve modüle özel hızlı bakım periyotlarını yönetir.
  */
 class AddEditCustomerActivity : AppCompatActivity() {
 
@@ -66,7 +66,12 @@ class AddEditCustomerActivity : AppCompatActivity() {
             binding.toolbar.title = "Müşteriyi Düzenle"
             loadCustomerForEditing()
         } else {
-            binding.toolbar.title = if (module == CustomerEntity.MODULE_LOJISTIK) "Yeni Kurumsal Müşteri" else "Yeni Müşteri"
+            binding.toolbar.title = when (module) {
+                CustomerEntity.MODULE_LOJISTIK -> "Yeni Kurumsal Müşteri"
+                CustomerEntity.MODULE_UV_LAMBA -> "Yeni UV Lamba Müşterisi"
+                CustomerEntity.MODULE_MINERAL -> "Yeni Mineral Değişimi Müşterisi"
+                else -> "Yeni Bireysel Müşteri"
+            }
             updateDateViews()
         }
 
@@ -81,6 +86,14 @@ class AddEditCustomerActivity : AppCompatActivity() {
     private fun applyModuleUi() {
         binding.cardCompany.visibility =
             if (module == CustomerEntity.MODULE_LOJISTIK) View.VISIBLE else View.GONE
+
+        val buttonTint = when (module) {
+            CustomerEntity.MODULE_UV_LAMBA -> R.color.uv_lamba_primary
+            CustomerEntity.MODULE_MINERAL -> R.color.mineral_primary
+            CustomerEntity.MODULE_LOJISTIK -> R.color.lojistik_primary
+            else -> R.color.bireysel_primary
+        }
+        binding.btnSaveCustomer.backgroundTintList = ContextCompat.getColorStateList(this, buttonTint)
         setupPresetButtons(module)
     }
 
@@ -205,7 +218,13 @@ class AddEditCustomerActivity : AppCompatActivity() {
 
         fun selectPresetButton(selectedBtn: MaterialButton, value: Int, isYears: Boolean) {
             val buttons = listOf(binding.btnPreset6M, binding.btnPreset1Y, binding.btnPreset2Y, binding.btnPreset3Y)
-            val primaryColor = ContextCompat.getColor(this, R.color.bireysel_primary)
+            val moduleColorRes = when (module) {
+                CustomerEntity.MODULE_UV_LAMBA -> R.color.uv_lamba_primary
+                CustomerEntity.MODULE_MINERAL -> R.color.mineral_primary
+                CustomerEntity.MODULE_LOJISTIK -> R.color.lojistik_primary
+                else -> R.color.bireysel_primary
+            }
+            val primaryColor = ContextCompat.getColor(this, moduleColorRes)
             val defaultTextColor = ContextCompat.getColor(this, R.color.text_primary)
             val whiteColor = ContextCompat.getColor(this, R.color.white)
 

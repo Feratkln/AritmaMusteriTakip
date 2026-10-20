@@ -55,7 +55,12 @@ class CustomerAdapter(
             binding.tvPhone.text = customer.phone
             binding.tvDistrict.text = customer.district
             binding.tvAddress.text = "📍 ${customer.address.ifBlank { customer.district }}"
-            binding.tvMaintenanceDate.text = "🔧 Bakım: ${DateUtils.formatDate(customer.maintenanceDate)}"
+            val datePrefix = when (customer.module) {
+                CustomerEntity.MODULE_UV_LAMBA -> "☀️ Lamba Değişimi"
+                CustomerEntity.MODULE_MINERAL -> "💎 Filtre Değişimi"
+                else -> "🔧 Bakım"
+            }
+            binding.tvMaintenanceDate.text = "$datePrefix: ${DateUtils.formatDate(customer.maintenanceDate)}"
 
             // Initials Avatar (e.g. "Ahmet Yılmaz" -> "AY")
             val firstInitial = customer.name.firstOrNull()?.uppercaseChar() ?: ""
