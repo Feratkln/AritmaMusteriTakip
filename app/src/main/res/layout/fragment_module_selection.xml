@@ -586,13 +586,28 @@
 
         </com.google.android.material.card.MaterialCardView>
 
+        <!-- Service Information Form (Digital PDF Generator) -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCreateServiceForm"
+            style="@style/Widget.App.Button.Outlined"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/white"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="📄  Servis Bilgi Formu Oluştur"
+            android:textColor="@color/bireysel_primary"
+            android:textSize="14sp"
+            app:strokeColor="@color/bireysel_primary" />
+
         <!-- Backup -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnBackupRestore"
             style="@style/Widget.App.Button.Outlined"
             android:layout_width="match_parent"
             android:layout_height="54dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="12dp"
             android:backgroundTint="@color/white"
             android:ellipsize="end"
             android:maxLines="1"

@@ -107,6 +107,20 @@ class CustomerDetailActivity : AppCompatActivity() {
             }
         }
 
+        // Create Service Form Action
+        binding.btnCreateServiceForm.setOnClickListener {
+            currentCustomer?.let { customer ->
+                val intent = Intent(this, com.aritma.musteritakip.ui.serviceform.ServiceFormActivity::class.java).apply {
+                    putExtra("CUSTOMER_ID", customer.id)
+                    putExtra("CUSTOMER_NAME", customer.fullName)
+                    putExtra("CUSTOMER_PHONE", customer.phone)
+                    putExtra("CUSTOMER_ADDRESS", "${customer.district} / ${customer.address}")
+                    putExtra("FORM_NO", String.format("00%04d", customer.id % 10000))
+                }
+                startActivity(intent)
+            }
+        }
+
         // Add Note Action
         binding.btnAddNote.setOnClickListener { showAddNoteDialog() }
 

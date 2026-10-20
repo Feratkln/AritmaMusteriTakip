@@ -17,6 +17,7 @@ import com.aritma.musteritakip.ui.backup.BackupRestoreActivity
 import com.aritma.musteritakip.ui.bireysel.CustomerListFragment
 import com.aritma.musteritakip.ui.lojistik.LojistikCustomerListFragment
 import com.aritma.musteritakip.ui.reservation.ReservationsActivity
+import com.aritma.musteritakip.ui.serviceform.ServiceFormActivity
 import com.aritma.musteritakip.ui.viewmodel.CustomerViewModel
 import com.aritma.musteritakip.ui.viewmodel.CustomerViewModelFactory
 import com.aritma.musteritakip.ui.viewmodel.StatusFilter
@@ -148,6 +149,11 @@ class ModuleSelectionFragment : Fragment() {
         }
         binding.btnOpenMineral.setOnClickListener(openMineralListener)
         binding.cardMineral.setOnClickListener(openMineralListener)
+
+        // Service Form Generator (Blank manual form from dashboard)
+        binding.btnCreateServiceForm.setOnClickListener {
+            startActivity(Intent(requireContext(), ServiceFormActivity::class.java))
+        }
 
         // Backup & Restore Action
         binding.btnBackupRestore.setOnClickListener {

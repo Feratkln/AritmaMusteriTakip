@@ -40,7 +40,7 @@ object WhatsAppHelper {
         context.startActivity(intent)
     }
 
-    private fun normalizePhoneNumber(phone: String): String {
+    fun normalizePhoneNumber(phone: String): String {
         var digits = phone.filter { it.isDigit() }
         if (digits.startsWith("0")) {
             digits = "9" + digits

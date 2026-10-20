@@ -222,6 +222,20 @@
 
                     </LinearLayout>
 
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnCreateServiceForm"
+                        style="@style/Widget.App.Button.Outlined"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="8dp"
+                        android:backgroundTint="@color/white"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="📄 Servis Bilgi Formu Oluştur"
+                        android:textColor="@color/bireysel_primary"
+                        app:strokeColor="@color/bireysel_primary"
+                        android:textSize="13sp" />
+
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
