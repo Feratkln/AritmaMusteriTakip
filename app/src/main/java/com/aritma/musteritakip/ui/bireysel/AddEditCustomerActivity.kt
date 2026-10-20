@@ -204,16 +204,27 @@ class AddEditCustomerActivity : AppCompatActivity() {
 
     private fun setupPresetButtons(module: String) {
         val isLojistik = module == CustomerEntity.MODULE_LOJISTIK
-        if (isLojistik) {
-            binding.btnPreset6M.text = "+3 Ay"
-            binding.btnPreset1Y.text = "+6 Ay"
-            binding.btnPreset2Y.text = "+9 Ay"
-            binding.btnPreset3Y.text = "+12 Ay"
-        } else {
-            binding.btnPreset6M.text = "+6 Ay"
-            binding.btnPreset1Y.text = "+1 Yıl"
-            binding.btnPreset2Y.text = "+2 Yıl"
-            binding.btnPreset3Y.text = "+3 Yıl"
+        val isMineral = module == CustomerEntity.MODULE_MINERAL
+
+        when {
+            isLojistik -> {
+                binding.btnPreset6M.text = "+3 Ay"
+                binding.btnPreset1Y.text = "+6 Ay"
+                binding.btnPreset2Y.text = "+9 Ay"
+                binding.btnPreset3Y.text = "+12 Ay"
+            }
+            isMineral -> {
+                binding.btnPreset6M.text = "+1 Yıl"
+                binding.btnPreset1Y.text = "+2 Yıl"
+                binding.btnPreset2Y.text = "+3 Yıl"
+                binding.btnPreset3Y.text = "+5 Yıl"
+            }
+            else -> {
+                binding.btnPreset6M.text = "+6 Ay"
+                binding.btnPreset1Y.text = "+1 Yıl"
+                binding.btnPreset2Y.text = "+2 Yıl"
+                binding.btnPreset3Y.text = "+3 Yıl"
+            }
         }
 
         fun selectPresetButton(selectedBtn: MaterialButton, value: Int, isYears: Boolean) {
@@ -248,16 +259,25 @@ class AddEditCustomerActivity : AppCompatActivity() {
             updateDateViews()
         }
 
-        if (isLojistik) {
-            binding.btnPreset6M.setOnClickListener { selectPresetButton(binding.btnPreset6M, 3, false) }
-            binding.btnPreset1Y.setOnClickListener { selectPresetButton(binding.btnPreset1Y, 6, false) }
-            binding.btnPreset2Y.setOnClickListener { selectPresetButton(binding.btnPreset2Y, 9, false) }
-            binding.btnPreset3Y.setOnClickListener { selectPresetButton(binding.btnPreset3Y, 12, false) }
-        } else {
-            binding.btnPreset6M.setOnClickListener { selectPresetButton(binding.btnPreset6M, 6, false) }
-            binding.btnPreset1Y.setOnClickListener { selectPresetButton(binding.btnPreset1Y, 1, true) }
-            binding.btnPreset2Y.setOnClickListener { selectPresetButton(binding.btnPreset2Y, 2, true) }
-            binding.btnPreset3Y.setOnClickListener { selectPresetButton(binding.btnPreset3Y, 3, true) }
+        when {
+            isLojistik -> {
+                binding.btnPreset6M.setOnClickListener { selectPresetButton(binding.btnPreset6M, 3, false) }
+                binding.btnPreset1Y.setOnClickListener { selectPresetButton(binding.btnPreset1Y, 6, false) }
+                binding.btnPreset2Y.setOnClickListener { selectPresetButton(binding.btnPreset2Y, 9, false) }
+                binding.btnPreset3Y.setOnClickListener { selectPresetButton(binding.btnPreset3Y, 12, false) }
+            }
+            isMineral -> {
+                binding.btnPreset6M.setOnClickListener { selectPresetButton(binding.btnPreset6M, 1, true) }
+                binding.btnPreset1Y.setOnClickListener { selectPresetButton(binding.btnPreset1Y, 2, true) }
+                binding.btnPreset2Y.setOnClickListener { selectPresetButton(binding.btnPreset2Y, 3, true) }
+                binding.btnPreset3Y.setOnClickListener { selectPresetButton(binding.btnPreset3Y, 5, true) }
+            }
+            else -> {
+                binding.btnPreset6M.setOnClickListener { selectPresetButton(binding.btnPreset6M, 6, false) }
+                binding.btnPreset1Y.setOnClickListener { selectPresetButton(binding.btnPreset1Y, 1, true) }
+                binding.btnPreset2Y.setOnClickListener { selectPresetButton(binding.btnPreset2Y, 2, true) }
+                binding.btnPreset3Y.setOnClickListener { selectPresetButton(binding.btnPreset3Y, 3, true) }
+            }
         }
     }
 

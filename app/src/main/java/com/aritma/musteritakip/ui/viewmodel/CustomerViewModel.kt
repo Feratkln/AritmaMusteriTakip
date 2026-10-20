@@ -45,7 +45,7 @@ class CustomerViewModel(private val repository: CustomerRepository) : ViewModel(
         viewModelScope.launch {
             val allCustomers = repository.getAllActiveCustomersList()
             val today = System.currentTimeMillis()
-            val maxAllowedDate = DateUtils.addMonths(today, 12) + (24 * 60 * 60 * 1000L) // Today + 366 days max limit
+            val maxAllowedDate = DateUtils.addYears(today, 6) // Supports up to 5-year mineral maintenance cycles safely
 
             allCustomers.forEach { customer ->
                 if (customer.maintenanceDate > maxAllowedDate) {
@@ -263,7 +263,8 @@ class CustomerViewModel(private val repository: CustomerRepository) : ViewModel(
             val today = System.currentTimeMillis()
             val newDate = DateUtils.addMonths(today, monthsToAdd)
             repository.updateMaintenanceDate(customerId, newDate)
-            val noteText = "Bakım yapıldı (Bugünden itibaren +$monthsToAdd Ay eklendi). Yeni bakım tarihi: ${DateUtils.formatDate(newDate)}"
+            val periodStr = if (monthsToAdd % 12 == 0) "+${monthsToAdd / 12} Yıl" else "+$monthsToAdd Ay"
+            val noteText = "Bakım yapıldı (Bugünden itibaren $periodStr eklendi). Yeni bakım tarihi: ${DateUtils.formatDate(newDate)}"
             repository.addNote(customerId, noteText)
         }
     }

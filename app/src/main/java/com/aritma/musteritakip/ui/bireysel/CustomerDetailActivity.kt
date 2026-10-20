@@ -233,6 +233,12 @@ class CustomerDetailActivity : AppCompatActivity() {
                     CustomerEntity.MODULE_LOJISTIK -> {
                         binding.btnRefreshMaintenanceBireysel.visibility = View.GONE
                         binding.layoutLojistikRefresh.visibility = View.VISIBLE
+                        binding.tvRefreshPeriodTitle.text = "✅ BAKIM YAPILDI — SIRADAKİ PERİYOT"
+
+                        binding.btnRefresh3Months.text = "+3 Ay"
+                        binding.btnRefresh6Months.text = "+6 Ay"
+                        binding.btnRefresh9Months.text = "+9 Ay"
+                        binding.btnRefresh12Months.text = "+12 Ay"
 
                         binding.btnRefresh3Months.setOnClickListener {
                             viewModel.refreshMaintenanceDate(customer.id, 3)
@@ -270,21 +276,30 @@ class CustomerDetailActivity : AppCompatActivity() {
                         }
                     }
                     CustomerEntity.MODULE_MINERAL -> {
-                        binding.btnRefreshMaintenanceBireysel.visibility = View.VISIBLE
-                        binding.layoutLojistikRefresh.visibility = View.GONE
-                        binding.btnRefreshMaintenanceBireysel.text = "💎 Mineral Filtre Değiştirildi (+1 Yıl)"
-                        binding.btnRefreshMaintenanceBireysel.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(this@CustomerDetailActivity, R.color.mineral_primary))
+                        binding.btnRefreshMaintenanceBireysel.visibility = View.GONE
+                        binding.layoutLojistikRefresh.visibility = View.VISIBLE
+                        binding.tvRefreshPeriodTitle.text = "💎 MİNERAL DEĞİŞTİRİLDİ — SIRADAKİ PERİYOT"
 
-                        binding.btnRefreshMaintenanceBireysel.setOnClickListener {
-                            CustomDialogHelper.showMaintenanceConfirmDialog(
-                                context = this@CustomerDetailActivity,
-                                customerName = customer.fullName,
-                                district = customer.district
-                            ) {
-                                viewModel.refreshMaintenanceDate(customer.id, 12)
-                                CustomDialogHelper.showSuccessToast(this@CustomerDetailActivity, "💎", "Mineral filtre değişimi kaydedildi! (+1 Yıl)")
-                            }
+                        binding.btnRefresh3Months.text = "+1 Yıl"
+                        binding.btnRefresh6Months.text = "+2 Yıl"
+                        binding.btnRefresh9Months.text = "+3 Yıl"
+                        binding.btnRefresh12Months.text = "+5 Yıl"
+
+                        binding.btnRefresh3Months.setOnClickListener {
+                            viewModel.refreshMaintenanceDate(customer.id, 12)
+                            CustomDialogHelper.showSuccessToast(this@CustomerDetailActivity, "💎", "Mineral filtre değişimi kaydedildi (+1 Yıl)")
+                        }
+                        binding.btnRefresh6Months.setOnClickListener {
+                            viewModel.refreshMaintenanceDate(customer.id, 24)
+                            CustomDialogHelper.showSuccessToast(this@CustomerDetailActivity, "💎", "Mineral filtre değişimi kaydedildi (+2 Yıl)")
+                        }
+                        binding.btnRefresh9Months.setOnClickListener {
+                            viewModel.refreshMaintenanceDate(customer.id, 36)
+                            CustomDialogHelper.showSuccessToast(this@CustomerDetailActivity, "💎", "Mineral filtre değişimi kaydedildi (+3 Yıl)")
+                        }
+                        binding.btnRefresh12Months.setOnClickListener {
+                            viewModel.refreshMaintenanceDate(customer.id, 60)
+                            CustomDialogHelper.showSuccessToast(this@CustomerDetailActivity, "💎", "Mineral filtre değişimi kaydedildi (+5 Yıl)")
                         }
                     }
                     else -> {
